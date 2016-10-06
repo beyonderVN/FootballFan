@@ -10,11 +10,16 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.source.local.CompetitionsLocalDataSource;
+import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
 import com.longngo.footballfan.ui.FootballFanApplication;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.functions.Action0;
@@ -28,10 +33,9 @@ import rx.functions.Func1;
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
  */
+@Singleton
 public class CompetitionsRepository implements CompetitionsDataSource {
     private static final String TAG = "CompetitionsRepository";
-    @Nullable
-    private static CompetitionsRepository INSTANCE = null;
 
     @NonNull
     private final CompetitionsDataSource mCompetitionsRemoteDataSource;
@@ -54,39 +58,12 @@ public class CompetitionsRepository implements CompetitionsDataSource {
     boolean mCacheIsDirty = false;
 
     // Prevent direct instantiation.
-    private CompetitionsRepository(@NonNull CompetitionsDataSource competitionsRemoteDataSource,
-                            @NonNull CompetitionsDataSource competitionsLocalDataSource) {
-        mCompetitionsRemoteDataSource = competitionsRemoteDataSource;
-        mCompetitionsLocalDataSource = competitionsLocalDataSource;
+    @Inject
+    public CompetitionsRepository() {
+        mCompetitionsRemoteDataSource = CompetitionRemoteDataSource.getInstance();
+        mCompetitionsLocalDataSource = CompetitionsLocalDataSource.getInstance();
     }
 
-    /**
-     * Returns the single instance of this class, creating it if necessary.
-     *
-     * @param competitionsRemoteDataSource the backend data source
-     * @param competitionsLocalDataSource  the device storage data source
-     * @return the {@link CompetitionsRepository} instance
-     */
-    public static CompetitionsRepository getInstance(@NonNull CompetitionsDataSource competitionsRemoteDataSource,
-                                              @NonNull CompetitionsDataSource competitionsLocalDataSource) {
-        if (INSTANCE == null) {
-            INSTANCE = new CompetitionsRepository(competitionsRemoteDataSource, competitionsLocalDataSource);
-        }
-        return INSTANCE;
-    }
-
-    /**
-     * Used to force {@link #getInstance(CompetitionsDataSource, CompetitionsDataSource)} to create a new instance
-     * next time it's called.
-     */
-    public static void destroyInstance() {
-        INSTANCE = null;
-    }
-
-    /**
-     * Gets tasks from cache, local data source (SQLite) or remote data source, whichever is
-     * available first.
-     */
 
 
     @Override
@@ -98,8 +75,8 @@ public class CompetitionsRepository implements CompetitionsDataSource {
             mCachedCompetitions = new LinkedHashMap<>();
         }
 
-        Observable<List<Competition>> remoteTasks = getAndSaveRemoteCompetitions();
-        return remoteTasks;
+        Observable<List<Competition>> remoteCompetitions = getAndSaveRemoteCompetitions();
+        return remoteCompetitions;
 //        if (mCacheIsDirty) {
 //            return remoteTasks;
 //        } else {
@@ -124,8 +101,8 @@ public class CompetitionsRepository implements CompetitionsDataSource {
             return mCompetitionsLocalDataSource.getCompetitions()
                     .flatMap(new Func1<List<Competition>, Observable<List<Competition>>>() {
                         @Override
-                        public Observable<List<Competition>> call(List<Competition> tasks) {
-                            return Observable.from(tasks)
+                        public Observable<List<Competition>> call(List<Competition> competitions) {
+                            return Observable.from(competitions)
                                     .doOnNext(new Action1<Competition>() {
                                         @Override
                                         public void call(Competition competition) {

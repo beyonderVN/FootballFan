@@ -10,11 +10,14 @@ import android.text.TextUtils;
 
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.source.CompetitionsDataSource;
+import com.longngo.footballfan.ui.FootballFanApplication;
 import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
 import java.util.List;
+
+import javax.inject.Singleton;
 
 import rx.Observable;
 import rx.functions.Func1;
@@ -24,7 +27,7 @@ import static dagger.internal.Preconditions.checkNotNull;
 /**
  * Created by Long on 10/6/2016.
  */
-
+@Singleton
 public class CompetitionsLocalDataSource implements CompetitionsDataSource {
     @Nullable
     private static CompetitionsLocalDataSource INSTANCE;
@@ -36,13 +39,12 @@ public class CompetitionsLocalDataSource implements CompetitionsDataSource {
     private Func1<Cursor, Competition> mCompetitionMapperFunction;
 
     // Prevent direct instantiation.
-    private CompetitionsLocalDataSource(@NonNull Context context,
-                                 @NonNull BaseSchedulerProvider schedulerProvider) {
-        checkNotNull(context, "context cannot be null");
-        checkNotNull(schedulerProvider, "scheduleProvider cannot be null");
-        CompetitionsDbHelper dbHelper = new CompetitionsDbHelper(context);
+    private CompetitionsLocalDataSource() {
+        checkNotNull(FootballFanApplication.getMainComponent().context(), "context cannot be null");
+        checkNotNull(FootballFanApplication.getMainComponent().schedulerProvider(), "scheduleProvider cannot be null");
+        CompetitionsDbHelper dbHelper = new CompetitionsDbHelper(FootballFanApplication.getMainComponent().context());
         SqlBrite sqlBrite = SqlBrite.create();
-        mDatabaseHelper = sqlBrite.wrapDatabaseHelper(dbHelper, schedulerProvider.io());
+        mDatabaseHelper = sqlBrite.wrapDatabaseHelper(dbHelper, FootballFanApplication.getMainComponent().schedulerProvider().io());
         mCompetitionMapperFunction = new Func1<Cursor, Competition>() {
             @Override
             public Competition call(Cursor c) {
@@ -66,11 +68,9 @@ public class CompetitionsLocalDataSource implements CompetitionsDataSource {
         };
     }
 
-    public static CompetitionsLocalDataSource getInstance(
-            @NonNull Context context,
-            @NonNull BaseSchedulerProvider schedulerProvider) {
+    public static CompetitionsLocalDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new CompetitionsLocalDataSource(context, schedulerProvider);
+            INSTANCE = new CompetitionsLocalDataSource();
         }
         return INSTANCE;
     }

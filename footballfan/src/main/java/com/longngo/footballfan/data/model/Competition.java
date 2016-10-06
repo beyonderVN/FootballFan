@@ -111,7 +111,6 @@ public class Competition implements Serializable
         stringBuilder.append("***** Competition Model Details *****\n");
         stringBuilder.append("id=" + this.getId() + "\n");
         stringBuilder.append("caption=" + this.getCaption() + "\n");
-
         stringBuilder.append("numberOfGames=" + this.getNumberOfGames() + "\n");
         stringBuilder.append("numberOfTeams=" + this.getNumberOfTeams() + "\n");
 

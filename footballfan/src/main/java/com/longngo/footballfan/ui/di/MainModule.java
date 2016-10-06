@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.longngo.footballfan.data.footballapi.FootballServiceApi;
 import com.longngo.footballfan.data.footballapi.FootballServiceFactory;
+import com.longngo.footballfan.data.source.CompetitionsDataSource;
+import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
 import com.longngo.footballfan.ui.FootballFanApplication;
 import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
 import com.longngo.footballfan.util.schedulers.SchedulerProvider;
@@ -39,6 +41,12 @@ public class MainModule {
     @Singleton
     BaseSchedulerProvider provideSchedulerProvider( SchedulerProvider schedulerProvider) {
         return schedulerProvider;
+    }
+
+    @Provides
+    @Singleton
+    CompetitionsDataSource provideCompetitionsDataSource(CompetitionRemoteDataSource competitionsDataSource) {
+        return competitionsDataSource;
     }
 
 
