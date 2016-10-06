@@ -4,11 +4,9 @@ import android.content.Context;
 
 import com.longngo.footballfan.data.footballapi.FootballService;
 import com.longngo.footballfan.data.footballapi.FootballServiceApi;
-import com.longngo.footballfan.data.source.CompetitionsDataSource;
 import com.longngo.footballfan.data.source.CompetitionsRepository;
-import com.longngo.footballfan.data.source.local.CompetitionsLocalDataSource;
-import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
-import com.longngo.footballfan.ui.activity.MainActivity;
+import com.longngo.footballfan.ui.activity.competion.CompetionDetailActivity;
+import com.longngo.footballfan.ui.activity.competions.MainActivity;
 import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Singleton;
@@ -27,6 +25,8 @@ public interface MainComponent {
     BaseSchedulerProvider schedulerProvider() ;
     CompetitionsRepository competitionsRepository();
     void inject(MainActivity mainActivity);
+
+    void inject(CompetionDetailActivity competionActivity);
 
 
 

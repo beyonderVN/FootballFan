@@ -1,13 +1,12 @@
-package com.longngo.footballfan.ui.activity;
+package com.longngo.footballfan.ui.activity.competions;
 
 import android.util.Log;
 
 import com.longngo.footballfan.coremvp.SimpleMVPPresenter;
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.source.CompetitionsRepository;
-import com.longngo.footballfan.ui.adapter.CompetitionListAdapter;
 import com.longngo.footballfan.ui.viewmodel.mapper.Mapper;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.Visitable;
+import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
 import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
 
 import java.util.List;
@@ -24,7 +23,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationModel> implements MainView{
-    private static final String TAG = "MainPresenter";
+    private static final String TAG = "CompetionDetailPresenter";
     BaseSchedulerProvider baseSchedulerProvider;
     private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
@@ -48,7 +47,7 @@ public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationM
                 .map(new Func1<List<Competition>, List<Visitable>>() {
                     @Override
                     public List<Visitable> call(List<Competition> competitions) {
-                        return Mapper.tran(competitions);
+                        return Mapper.tranCompetition(competitions);
                     }
                 })
                 .subscribeOn( baseSchedulerProvider.computation())

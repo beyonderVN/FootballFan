@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.longngo.footballfan.ui.adapter.viewholder.BaseViewHolder;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.TypeFactoryForListVM;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.VMTypeFactory;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.Visitable;
+import com.longngo.footballfan.ui.adapter.vmfactory.TypeFactoryForListVM;
+import com.longngo.footballfan.ui.adapter.vmfactory.VMTypeFactory;
+import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ import java.util.List;
  * Created by Long on 10/5/2016.
  */
 
-public class CompetitionListAdapter extends RecyclerView.Adapter<BaseViewHolder<Visitable>> {
+public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<Visitable>> {
     private VMTypeFactory vmTypeFactory = new TypeFactoryForListVM();
     List<Visitable> visitables;
 
-    public CompetitionListAdapter(List<Visitable> visitables) {
+    public BaseAdapter(List<Visitable> visitables) {
         this.visitables = visitables;
     }
 

@@ -1,8 +1,8 @@
 package com.longngo.footballfan.ui.viewmodel;
 
 import com.longngo.footballfan.data.model.Competition;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.VMTypeFactory;
-import com.longngo.footballfan.ui.viewmodel.vmfactory.Visitable;
+import com.longngo.footballfan.ui.adapter.vmfactory.VMTypeFactory;
+import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
 
 import java.io.Serializable;
 

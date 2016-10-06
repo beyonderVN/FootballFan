@@ -2,6 +2,7 @@ package com.longngo.footballfan.data.footballapi;
 
 
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.Team;
 
 import java.util.List;
 
@@ -27,6 +28,10 @@ public class FootballService {
 
     public Observable<List<Competition>> getCompetitions() {
         return mFootballServiceApi.getCompetitions();
+    }
+
+    public Observable<List<Team>> getTeams(int competitionId) {
+        return mFootballServiceApi.getTeams(competitionId);
     }
 
 }

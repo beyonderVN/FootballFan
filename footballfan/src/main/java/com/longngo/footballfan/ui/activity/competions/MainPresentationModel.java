@@ -1,6 +1,6 @@
-package com.longngo.footballfan.ui.activity;
+package com.longngo.footballfan.ui.activity.competions;
 
-import com.longngo.footballfan.ui.viewmodel.vmfactory.Visitable;
+import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
 
 import java.io.Serializable;
 import java.util.ArrayList;

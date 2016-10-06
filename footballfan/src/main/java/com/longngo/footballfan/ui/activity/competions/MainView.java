@@ -1,4 +1,4 @@
-package com.longngo.footballfan.ui.activity;
+package com.longngo.footballfan.ui.activity.competions;
 
 import com.longngo.footballfan.coremvp.MVPView;
 
