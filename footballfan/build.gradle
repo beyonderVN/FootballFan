@@ -63,5 +63,7 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
 
+    compile 'com.squareup.sqlbrite:sqlbrite:0.7.0'
+
     testCompile 'junit:junit:4.12'
 }

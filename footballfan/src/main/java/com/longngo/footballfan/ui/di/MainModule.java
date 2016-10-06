@@ -2,9 +2,11 @@ package com.longngo.footballfan.ui.di;
 
 import android.content.Context;
 
-import com.longngo.footballfan.data.datamanager.FootballService;
-import com.longngo.footballfan.data.datamanager.FootballServiceFactory;
+import com.longngo.footballfan.data.footballapi.FootballServiceApi;
+import com.longngo.footballfan.data.footballapi.FootballServiceFactory;
 import com.longngo.footballfan.ui.FootballFanApplication;
+import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
+import com.longngo.footballfan.util.schedulers.SchedulerProvider;
 
 import javax.inject.Singleton;
 
@@ -29,8 +31,14 @@ public class MainModule {
 
     @Provides
     @Singleton
-    FootballService provideBourbonService() {
+    FootballServiceApi provideBourbonService() {
         return FootballServiceFactory.makeService();
+    }
+
+    @Provides
+    @Singleton
+    BaseSchedulerProvider provideSchedulerProvider( SchedulerProvider schedulerProvider) {
+        return schedulerProvider;
     }
 
 

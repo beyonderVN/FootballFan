@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.longngo.footballfan.R;
-import com.longngo.footballfan.data.datamanager.DataManager;
+import com.longngo.footballfan.data.footballapi.FootballService;
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.ui.FootballFanApplication;
 import com.longngo.footballfan.ui.adapter.CompetitionListAdapter;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.list)
     RecyclerView listRV;
-    DataManager mDataManager ;
+    FootballService mFootballService;
     CompetitionListAdapter competitionListAdapter;
     List<Visitable> visitables = new ArrayList<>();
     @Override
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mDataManager = FootballFanApplication.getMainComponent().dataManager();
+        mFootballService = FootballFanApplication.getMainComponent().dataManager();
         listRV.setLayoutManager( new LinearLayoutManager(this));
         competitionListAdapter = new CompetitionListAdapter(visitables);
         listRV.setAdapter(competitionListAdapter);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getCompetitions(String season) {
-        mDataManager.getCompetitions(season)
+        mFootballService.getCompetitions(season)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .map(new Func1<List<Competition>, List<Visitable>>() {

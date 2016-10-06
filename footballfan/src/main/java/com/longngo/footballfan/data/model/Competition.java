@@ -22,6 +22,16 @@ public class Competition implements Serializable
 
     private String league;
 
+    public Competition(String id, String numberOfGames, String numberOfTeams, String lastUpdated, String year, String caption, String league) {
+        this.id = id;
+        this.numberOfGames = numberOfGames;
+        this.numberOfTeams = numberOfTeams;
+        this.lastUpdated = lastUpdated;
+        this.year = year;
+        this.caption = caption;
+        this.league = league;
+    }
+
     public String getId ()
     {
         return id;
