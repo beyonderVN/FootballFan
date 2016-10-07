@@ -75,20 +75,20 @@ public class CompetitionsRepository implements CompetitionsDataSource {
         }
 
         Observable<List<Competition>> remoteCompetitions = getAndSaveRemoteCompetitions();
-        return remoteCompetitions;
-//        if (mCacheIsDirty) {
-//            return remoteTasks;
-//        } else {
-//            // Query the local storage if available. If not, query the network.
-//            Observable<List<Competition>> localTasks = getAndCacheLocalCompetitions();
-//            return Observable.concat(localTasks, remoteTasks)
-//                    .filter(new Func1<List<Competition>, Boolean>() {
-//                        @Override
-//                        public Boolean call(List<Competition> tasks) {
-//                            return !tasks.isEmpty();
-//                        }
-//                    }).first();
-//        }
+
+        if (mCacheIsDirty) {
+            return remoteCompetitions;
+        } else {
+            // Query the local storage if available. If not, query the network.
+            Observable<List<Competition>> localTasks = getAndCacheLocalCompetitions();
+            return Observable.concat(localTasks, remoteCompetitions)
+                    .filter(new Func1<List<Competition>, Boolean>() {
+                        @Override
+                        public Boolean call(List<Competition> tasks) {
+                            return !tasks.isEmpty();
+                        }
+                    }).first();
+        }
     }
 
     @Override
@@ -123,8 +123,8 @@ public class CompetitionsRepository implements CompetitionsDataSource {
                                 @Override
                                 public void call(Competition competition) {
                                     Log.d(TAG, "getAndSaveRemoteCompetitions: "+competition.toString());
-//                                    mCompetitionsLocalDataSource.saveCompetition(competition);
-//                                    mCachedCompetitions.put(competition.getId(), competition);
+                                    mCompetitionsLocalDataSource.saveCompetition(competition);
+                                    mCachedCompetitions.put(competition.getId(), competition);
                                 }
                             }).toList();
                         }

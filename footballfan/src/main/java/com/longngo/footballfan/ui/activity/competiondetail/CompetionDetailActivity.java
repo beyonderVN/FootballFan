@@ -7,12 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.longngo.footballfan.FootballFanApplication;
 import com.longngo.footballfan.R;
 import com.longngo.footballfan.data.model.Competition;
-import com.longngo.footballfan.FootballFanApplication;
-import com.longngo.footballfan.ui.adapter.BaseAdapter;
 import com.longngo.footballfan.ui.activity.base.BaseActivity;
-import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
+import com.longngo.footballfan.ui.adapter.BaseAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,8 +47,7 @@ public class CompetionDetailActivity extends BaseActivity<CompetionDetailPresent
         listRV.setAdapter(baseAdapter);
 
         Competition competition = (Competition) getIntent().getSerializableExtra(COMPETITION);
-        presenter.getPresentationModel().add(new CompetitionVM(competition));
-        presenter.fetchRepositories(Integer.valueOf(competition.getId()) );
+        presenter.fetchRepositories( competition);
     }
 
     @Override

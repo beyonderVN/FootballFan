@@ -25,5 +25,9 @@ public class CompetionDetailPresentationModel extends BasePresentationModel<Base
     public void add(List<BaseVM> visitables){
         visitableList.addAll(visitables);
         shouldFetchRepositories=false;
+
+    }
+    public void clearList(){
+        visitableList.clear();
     }
 }

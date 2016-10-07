@@ -4,9 +4,11 @@ import android.util.Log;
 
 import com.longngo.footballfan.common.coremvp.SimpleMVPPresenter;
 import com.longngo.footballfan.common.schedulers.BaseSchedulerProvider;
+import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.source.TeamsRepository;
 import com.longngo.footballfan.ui.viewmodel.BaseVM;
+import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
 import com.longngo.footballfan.ui.viewmodel.mapper.Mapper;
 
 import java.util.List;
@@ -44,11 +46,14 @@ public class CompetionDetailPresenter extends SimpleMVPPresenter<CompetionDetail
         super.onDestroy();
         mSubscriptions.unsubscribe();
     }
-    void fetchRepositories(int id){
+    void fetchRepositories(Competition competition){
         if (!getPresentationModel().isShouldFetchRepositories()) {
             return;
         }
-        getCompetition(id);
+        getPresentationModel().clearList();
+        getPresentationModel().add(new CompetitionVM(competition));
+        loadDataDisplay();
+        getCompetition(Integer.valueOf(competition.getId()));
     }
     private void getCompetition(int id) {
         mSubscriptions.clear();
