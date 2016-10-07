@@ -1,6 +1,7 @@
-package com.longngo.footballfan.ui.activity.competion;
+package com.longngo.footballfan.ui.activity.competiondetail;
 
-import com.longngo.footballfan.coremvp.MVPView;
+
+import com.longngo.footballfan.common.coremvp.MVPView;
 
 /**
  * Created by Admin on 06/10/2016.

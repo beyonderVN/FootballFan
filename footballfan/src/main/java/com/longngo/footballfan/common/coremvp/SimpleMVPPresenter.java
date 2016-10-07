@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.longngo.footballfan.coremvp;
+package com.longngo.footballfan.common.coremvp;
 
 import java.io.Serializable;
 

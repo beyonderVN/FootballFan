@@ -2,8 +2,8 @@ package com.longngo.footballfan.ui.viewmodel.mapper;
 
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.model.Team;
+import com.longngo.footballfan.ui.viewmodel.BaseVM;
 import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
-import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
 import com.longngo.footballfan.ui.viewmodel.TeamVM;
 
 import java.util.ArrayList;
@@ -14,24 +14,24 @@ import java.util.List;
  */
 
 public class Mapper {
-    public static Visitable tranCompetition(Competition competition){
+    public static BaseVM tranCompetition(Competition competition){
         return new CompetitionVM(competition);
     }
 
-    public static List<Visitable> tranCompetition(List<Competition> competitions){
-        List<Visitable> list = new ArrayList<>();
+    public static List<BaseVM> tranCompetition(List<Competition> competitions){
+        List<BaseVM> list = new ArrayList<>();
         for (Competition item :competitions) {
             list.add(tranCompetition(item));
         }
         return list;
     }
 
-    public static Visitable tranTeam(Team team){
+    public static BaseVM tranTeam(Team team){
         return new TeamVM(team);
     }
 
-    public static List<Visitable> tranTeam(List<Team> teams){
-        List<Visitable> list = new ArrayList<>();
+    public static List<BaseVM> tranTeam(List<Team> teams){
+        List<BaseVM> list = new ArrayList<>();
         for (Team item :teams) {
             list.add(tranTeam(item));
         }

@@ -1,7 +1,6 @@
 package com.longngo.footballfan.data.source.local;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -10,8 +9,7 @@ import android.text.TextUtils;
 
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.source.CompetitionsDataSource;
-import com.longngo.footballfan.ui.FootballFanApplication;
-import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
+import com.longngo.footballfan.FootballFanApplication;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 

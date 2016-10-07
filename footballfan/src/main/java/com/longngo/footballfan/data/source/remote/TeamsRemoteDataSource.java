@@ -1,9 +1,8 @@
 package com.longngo.footballfan.data.source.remote;
 
-import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.source.TeamsDataSource;
-import com.longngo.footballfan.ui.FootballFanApplication;
+import com.longngo.footballfan.FootballFanApplication;
 
 import java.util.List;
 

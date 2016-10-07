@@ -1,4 +1,4 @@
-package com.longngo.footballfan.data.footballapi;
+package com.longngo.footballfan.data.backend.footballapi;
 
 import com.google.gson.Gson;
 import com.longngo.footballfan.BuildConfig;

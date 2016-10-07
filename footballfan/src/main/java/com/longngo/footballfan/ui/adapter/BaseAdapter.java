@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.longngo.footballfan.ui.adapter.viewholder.BaseViewHolder;
 import com.longngo.footballfan.ui.adapter.vmfactory.TypeFactoryForListVM;
 import com.longngo.footballfan.ui.adapter.vmfactory.VMTypeFactory;
-import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
+import com.longngo.footballfan.ui.viewmodel.BaseVM;
 
 import java.util.List;
 
@@ -16,18 +16,18 @@ import java.util.List;
  * Created by Long on 10/5/2016.
  */
 
-public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<Visitable>> {
+public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseVM>> {
     private VMTypeFactory vmTypeFactory = new TypeFactoryForListVM();
-    List<Visitable> visitables;
+    private List<BaseVM> list;
 
-    public BaseAdapter(List<Visitable> visitables) {
-        this.visitables = visitables;
+    public BaseAdapter(List<BaseVM> list) {
+        this.list = list;
     }
 
 
 
     @Override
-    public BaseViewHolder<Visitable> onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder<BaseVM> onCreateViewHolder(ViewGroup parent, int viewType) {
         if (parent != null) {
             View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
             return vmTypeFactory.createHolder(viewType, view);
@@ -36,19 +36,19 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<Visitable>>
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder<Visitable> holder, int position) {
+    public void onBindViewHolder(BaseViewHolder<BaseVM> holder, int position) {
         if(holder!=null){
-            holder.bind(visitables.get(position));
+            holder.bind(list.get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return visitables.size();
+        return list.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return visitables.get(position).getVMType(vmTypeFactory);
+        return list.get(position).getVMType(vmTypeFactory);
     }
 }

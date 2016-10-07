@@ -2,17 +2,14 @@ package com.longngo.footballfan.ui.viewmodel;
 
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.ui.adapter.vmfactory.VMTypeFactory;
-import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
-
-import java.io.Serializable;
 
 /**
  * Created by Long on 10/5/2016.
  */
 
-public class CompetitionVM implements Serializable,Visitable {
+public class CompetitionVM extends BaseVM{
 
-    Competition competition;
+    private Competition competition;
 
     public CompetitionVM(Competition competition) {
         this.competition = competition;

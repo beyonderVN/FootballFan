@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.longngo.footballfan.coremvp;
+package com.longngo.footballfan.common.coremvp;
 
 /**
  * Base interface that any class that wants to act as a View in the MVP (Model-View-Presenter)

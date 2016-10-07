@@ -1,8 +1,8 @@
-package com.longngo.footballfan.data.footballapi;
+package com.longngo.footballfan.data.backend.footballapi;
 
 
 import com.longngo.footballfan.data.model.Competition;
-import com.longngo.footballfan.data.model.Team;
+import com.longngo.footballfan.data.model.TeamList;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface FootballServiceApi {
 
 
     @GET("/v1/competitions/{id}/teams")
-    Observable<List<Team>> getTeams(@Path("id") int teamId);
+    Observable<TeamList> getTeams(@Path("id") int teamId);
 
 
 

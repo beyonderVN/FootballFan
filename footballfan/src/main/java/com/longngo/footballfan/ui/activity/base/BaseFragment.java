@@ -1,11 +1,10 @@
-package com.longngo.footballfan.ui.base;
+package com.longngo.footballfan.ui.activity.base;
 
 import android.support.annotation.NonNull;
 
-
-import com.longngo.footballfan.coremvp.MVPFragment;
-import com.longngo.footballfan.coremvp.MVPPresenter;
-import com.longngo.footballfan.coremvp.MVPView;
+import com.longngo.footballfan.common.coremvp.MVPFragment;
+import com.longngo.footballfan.common.coremvp.MVPPresenter;
+import com.longngo.footballfan.common.coremvp.MVPView;
 
 import java.io.Serializable;
 

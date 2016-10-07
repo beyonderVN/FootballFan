@@ -2,17 +2,14 @@ package com.longngo.footballfan.ui.viewmodel;
 
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.ui.adapter.vmfactory.VMTypeFactory;
-import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
-
-import java.io.Serializable;
 
 /**
  * Created by Admin on 06/10/2016.
  */
 
-public class TeamVM implements Serializable,Visitable {
+public class TeamVM extends BaseVM {
 
-    Team team;
+    private Team team;
 
     public TeamVM(Team team) {
         this.team = team;

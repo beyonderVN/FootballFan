@@ -1,11 +1,11 @@
-package com.longngo.footballfan.ui;
+package com.longngo.footballfan;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.longngo.footballfan.ui.di.DaggerMainComponent;
-import com.longngo.footballfan.ui.di.MainComponent;
-import com.longngo.footballfan.ui.di.MainModule;
+import com.longngo.footballfan.common.di.DaggerMainComponent;
+import com.longngo.footballfan.common.di.MainComponent;
+import com.longngo.footballfan.common.di.MainModule;
 
 /**
  * Created by Long on 10/5/2016.

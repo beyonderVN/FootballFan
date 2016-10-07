@@ -5,6 +5,7 @@ import android.view.View;
 import com.longngo.footballfan.R;
 import com.longngo.footballfan.ui.adapter.viewholder.BaseViewHolder;
 import com.longngo.footballfan.ui.adapter.viewholder.CompetitionViewHolder;
+import com.longngo.footballfan.ui.adapter.viewholder.TeamViewHolder;
 import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
 import com.longngo.footballfan.ui.viewmodel.TeamVM;
 
@@ -30,7 +31,7 @@ public class TypeFactoryForListVM implements VMTypeFactory {
             case R.layout.layout_item_competition :
                 return new CompetitionViewHolder(view);
             case R.layout.layout_item_team :
-                return new CompetitionViewHolder(view);
+                return new TeamViewHolder(view);
 
         }
         return null;

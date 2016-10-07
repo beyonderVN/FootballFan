@@ -1,14 +1,14 @@
-package com.longngo.footballfan.ui.di;
+package com.longngo.footballfan.common.di;
 
 import android.content.Context;
 
-import com.longngo.footballfan.data.footballapi.FootballServiceApi;
-import com.longngo.footballfan.data.footballapi.FootballServiceFactory;
+import com.longngo.footballfan.data.backend.footballapi.FootballServiceApi;
+import com.longngo.footballfan.data.backend.footballapi.FootballServiceFactory;
 import com.longngo.footballfan.data.source.CompetitionsDataSource;
 import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
-import com.longngo.footballfan.ui.FootballFanApplication;
-import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
-import com.longngo.footballfan.util.schedulers.SchedulerProvider;
+import com.longngo.footballfan.FootballFanApplication;
+import com.longngo.footballfan.common.schedulers.BaseSchedulerProvider;
+import com.longngo.footballfan.common.schedulers.SchedulerProvider;
 
 import javax.inject.Singleton;
 
@@ -33,7 +33,7 @@ public class MainModule {
 
     @Provides
     @Singleton
-    FootballServiceApi provideBourbonService() {
+    FootballServiceApi provideFootballServiceApi() {
         return FootballServiceFactory.makeService();
     }
 

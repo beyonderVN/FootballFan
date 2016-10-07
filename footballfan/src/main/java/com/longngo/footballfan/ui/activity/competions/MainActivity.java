@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.longngo.footballfan.R;
-import com.longngo.footballfan.ui.FootballFanApplication;
+import com.longngo.footballfan.FootballFanApplication;
 import com.longngo.footballfan.ui.adapter.BaseAdapter;
-import com.longngo.footballfan.ui.base.BaseActivity;
+import com.longngo.footballfan.ui.activity.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +32,8 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
     @Override
     protected void onStart() {
         super.onStart();
-        baseAdapter = new BaseAdapter(presenter.getPresentationModel().visitableList);
+
+        baseAdapter = new BaseAdapter(presenter.getPresentationModel().getVisitableList());
         listRV.setAdapter(baseAdapter);
     }
 

@@ -12,7 +12,6 @@ import android.util.Log;
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.source.local.CompetitionsLocalDataSource;
 import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
-import com.longngo.footballfan.ui.FootballFanApplication;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -69,7 +68,7 @@ public class CompetitionsRepository implements CompetitionsDataSource {
     @Override
     public Observable<List<Competition>> getCompetitions() {
         // Respond immediately with cache if available and not dirty
-        if (mCachedCompetitions != null && !mCacheIsDirty) {
+        if (mCachedCompetitions != null && !mCacheIsDirty && mCachedCompetitions.values().size()!=0) {
             return Observable.from(mCachedCompetitions.values()).toList();
         } else if (mCachedCompetitions == null) {
             mCachedCompetitions = new LinkedHashMap<>();

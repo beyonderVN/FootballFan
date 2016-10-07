@@ -1,4 +1,4 @@
-package com.longngo.footballfan.util.schedulers;
+package com.longngo.footballfan.common.schedulers;
 
 import android.support.annotation.NonNull;
 

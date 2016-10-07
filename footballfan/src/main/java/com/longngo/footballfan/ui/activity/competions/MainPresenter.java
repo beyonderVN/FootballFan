@@ -2,12 +2,12 @@ package com.longngo.footballfan.ui.activity.competions;
 
 import android.util.Log;
 
-import com.longngo.footballfan.coremvp.SimpleMVPPresenter;
+import com.longngo.footballfan.common.coremvp.SimpleMVPPresenter;
+import com.longngo.footballfan.common.schedulers.BaseSchedulerProvider;
 import com.longngo.footballfan.data.model.Competition;
 import com.longngo.footballfan.data.source.CompetitionsRepository;
+import com.longngo.footballfan.ui.viewmodel.BaseVM;
 import com.longngo.footballfan.ui.viewmodel.mapper.Mapper;
-import com.longngo.footballfan.ui.adapter.vmfactory.Visitable;
-import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
 
 import java.util.List;
 
@@ -23,13 +23,13 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationModel> implements MainView{
-    private static final String TAG = "CompetionDetailPresenter";
-    BaseSchedulerProvider baseSchedulerProvider;
+    private static final String TAG = "MainPresenter";
+    private BaseSchedulerProvider baseSchedulerProvider;
     private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
-    CompetitionsRepository competitionsRepository;
+    private CompetitionsRepository competitionsRepository;
     @Inject
-    public MainPresenter(BaseSchedulerProvider baseSchedulerProvider, CompetitionsRepository competitionsRepository) {
+    MainPresenter(BaseSchedulerProvider baseSchedulerProvider, CompetitionsRepository competitionsRepository) {
         this.baseSchedulerProvider = baseSchedulerProvider;
         this.competitionsRepository = competitionsRepository;
     }
@@ -37,22 +37,34 @@ public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationM
     @Override
     public void attachView(MainView mvpView, MainPresentationModel presentationModel) {
         super.attachView(mvpView, presentationModel);
-        getCompetitions("2016");
+        fetchRepositories("2016");
     }
 
-    public void getCompetitions(String season) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSubscriptions.unsubscribe();
+    }
+
+    public void fetchRepositories(String season){
+        if (!getPresentationModel().isShouldFetchRepositories()) {
+            return;
+        }
+        getCompetitions(season);
+    }
+    private void getCompetitions(String season) {
         mSubscriptions.clear();
         Subscription subscription = competitionsRepository
                 .getCompetitions()
-                .map(new Func1<List<Competition>, List<Visitable>>() {
+                .map(new Func1<List<Competition>, List<BaseVM>>() {
                     @Override
-                    public List<Visitable> call(List<Competition> competitions) {
+                    public List<BaseVM> call(List<Competition> competitions) {
                         return Mapper.tranCompetition(competitions);
                     }
                 })
                 .subscribeOn( baseSchedulerProvider.computation())
                 .observeOn( baseSchedulerProvider.ui())
-                .subscribe(new Observer<List<Visitable>>() {
+                .subscribe(new Observer<List<BaseVM>>() {
                     @Override
                     public void onCompleted() {
 
@@ -64,12 +76,12 @@ public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationM
                     }
 
                     @Override
-                    public void onNext(List<Visitable> competitions) {
+                    public void onNext(List<BaseVM> competitions) {
                         Log.d(TAG, "onNext: "+competitions.size());
                         if (!competitions.isEmpty()) {
                             Log.d(TAG, "onSuccess: "+competitions.size());
 
-                            getPresentationModel().visitableList.addAll(competitions);
+                            getPresentationModel().add(competitions);
                             loadCompetitions();
 
                         } else {

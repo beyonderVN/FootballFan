@@ -1,13 +1,13 @@
-package com.longngo.footballfan.ui.di;
+package com.longngo.footballfan.common.di;
 
 import android.content.Context;
 
-import com.longngo.footballfan.data.footballapi.FootballService;
-import com.longngo.footballfan.data.footballapi.FootballServiceApi;
+import com.longngo.footballfan.data.backend.footballapi.FootballService;
+import com.longngo.footballfan.data.backend.footballapi.FootballServiceApi;
 import com.longngo.footballfan.data.source.CompetitionsRepository;
-import com.longngo.footballfan.ui.activity.competion.CompetionDetailActivity;
+import com.longngo.footballfan.ui.activity.competiondetail.CompetionDetailActivity;
 import com.longngo.footballfan.ui.activity.competions.MainActivity;
-import com.longngo.footballfan.util.schedulers.BaseSchedulerProvider;
+import com.longngo.footballfan.common.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Singleton;
 

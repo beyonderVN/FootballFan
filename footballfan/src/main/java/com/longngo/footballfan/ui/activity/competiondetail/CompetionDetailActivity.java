@@ -1,4 +1,4 @@
-package com.longngo.footballfan.ui.activity.competion;
+package com.longngo.footballfan.ui.activity.competiondetail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +9,10 @@ import android.support.v7.widget.RecyclerView;
 
 import com.longngo.footballfan.R;
 import com.longngo.footballfan.data.model.Competition;
-import com.longngo.footballfan.ui.FootballFanApplication;
+import com.longngo.footballfan.FootballFanApplication;
 import com.longngo.footballfan.ui.adapter.BaseAdapter;
-import com.longngo.footballfan.ui.base.BaseActivity;
-
-import java.io.Serializable;
-
-import javax.inject.Inject;
+import com.longngo.footballfan.ui.activity.base.BaseActivity;
+import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,11 +44,12 @@ public class CompetionDetailActivity extends BaseActivity<CompetionDetailPresent
     @Override
     protected void onStart() {
         super.onStart();
-        baseAdapter = new BaseAdapter(presenter.getPresentationModel().visitableList);
+        baseAdapter = new BaseAdapter(presenter.getPresentationModel().getVisitableList());
         listRV.setAdapter(baseAdapter);
 
         Competition competition = (Competition) getIntent().getSerializableExtra(COMPETITION);
-        presenter.getCompetition(Integer.valueOf(competition.getId()) );
+        presenter.getPresentationModel().add(new CompetitionVM(competition));
+        presenter.fetchRepositories(Integer.valueOf(competition.getId()) );
     }
 
     @Override
