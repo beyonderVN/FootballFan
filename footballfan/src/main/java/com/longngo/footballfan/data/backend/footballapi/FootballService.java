@@ -3,7 +3,10 @@ package com.longngo.footballfan.data.backend.footballapi;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.model.TeamList;
 
@@ -13,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Single;
 import rx.functions.Func1;
 
 @Singleton
@@ -27,9 +29,6 @@ public class FootballService {
         mFootballServiceApi = footballServiceApi;
     }
 
-    public Single<List<Competition>> getCompetitions(String season) {
-        return mFootballServiceApi.getCompetitions(season);
-    }
 
     public Observable<List<Competition>> getCompetitions() {
         return mFootballServiceApi.getCompetitions();
@@ -47,4 +46,18 @@ public class FootballService {
                 });
     }
 
+    public Observable<LeagueTable> getLeagueTable(int competitionId) {
+        return mFootballServiceApi.getLeagueTable(competitionId).map(new Func1<JsonObject, LeagueTable>() {
+            @Override
+            public LeagueTable call(JsonObject teams) {
+                Log.d(TAG, "getLeagueTable -> call: "+teams.toString());
+
+                return null;
+            }
+        });
+    }
+
+    public Observable<FixtureList> getFixtureList(int competitionId) {
+        return mFootballServiceApi.getFixtureList(competitionId,8);
+    }
 }

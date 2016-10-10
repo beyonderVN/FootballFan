@@ -2,6 +2,8 @@ package com.longngo.footballfan.data.source.local;
 
 import android.support.annotation.Nullable;
 
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.source.TeamsDataSource;
 
@@ -30,6 +32,16 @@ public class TeamsLocalDataSource implements TeamsDataSource {
     }
     @Override
     public Observable<List<Team>> getTeams(int competitionId) {
+        return null;
+    }
+
+    @Override
+    public Observable<LeagueTable> getLeagueTable(int competitionId) {
+        return null;
+    }
+
+    @Override
+    public Observable<FixtureList> getFixtureList(int competitionId) {
         return null;
     }
 }

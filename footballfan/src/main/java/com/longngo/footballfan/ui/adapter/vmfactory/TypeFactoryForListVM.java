@@ -5,8 +5,12 @@ import android.view.View;
 import com.longngo.footballfan.R;
 import com.longngo.footballfan.ui.adapter.viewholder.BaseViewHolder;
 import com.longngo.footballfan.ui.adapter.viewholder.CompetitionViewHolder;
+import com.longngo.footballfan.ui.adapter.viewholder.SectionHolder;
+import com.longngo.footballfan.ui.adapter.viewholder.SimpleTextViewHolder;
 import com.longngo.footballfan.ui.adapter.viewholder.TeamViewHolder;
 import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
+import com.longngo.footballfan.ui.viewmodel.SectionVM;
+import com.longngo.footballfan.ui.viewmodel.SimpleTextViewVM;
 import com.longngo.footballfan.ui.viewmodel.TeamVM;
 
 /**
@@ -32,8 +36,22 @@ public class TypeFactoryForListVM implements VMTypeFactory {
                 return new CompetitionViewHolder(view);
             case R.layout.layout_item_team :
                 return new TeamViewHolder(view);
+            case R.layout.layout_section :
+                return new SectionHolder(view);
+            case R.layout.layout_simple :
+                return new SimpleTextViewHolder(view);
 
         }
         return null;
+    }
+
+    @Override
+    public int getType(SectionVM sectionVM) {
+        return  R.layout.layout_section;
+}
+
+    @Override
+    public int getType(SimpleTextViewVM simpleTextViewVM) {
+        return  R.layout.layout_simple;
     }
 }

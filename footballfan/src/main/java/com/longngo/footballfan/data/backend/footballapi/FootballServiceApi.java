@@ -1,7 +1,9 @@
 package com.longngo.footballfan.data.backend.footballapi;
 
 
+import com.google.gson.JsonObject;
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.FixtureList;
 import com.longngo.footballfan.data.model.TeamList;
 
 import java.util.List;
@@ -24,9 +26,17 @@ public interface FootballServiceApi {
     Observable<List<Competition>> getCompetitions();
 
 
-    @GET("/v1/competitions/{id}/teams")
+    @GET("competitions/{id}/teams")
     Observable<TeamList> getTeams(@Path("id") int teamId);
 
 
+
+    @GET("competitions/{id}/leagueTable")
+    Observable<JsonObject> getLeagueTable(@Path("id") int teamId);
+
+
+    @GET("competitions/{id}/fixtures")
+    Observable<FixtureList> getFixtureList(@Path("id") int teamId,
+                                           @Query("matchday") int matchday);
 
 }

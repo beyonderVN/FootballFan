@@ -9,10 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
-import com.longngo.footballfan.data.source.local.CompetitionsLocalDataSource;
 import com.longngo.footballfan.data.source.local.TeamsLocalDataSource;
-import com.longngo.footballfan.data.source.remote.CompetitionRemoteDataSource;
 import com.longngo.footballfan.data.source.remote.TeamsRemoteDataSource;
 
 import java.util.List;
@@ -66,5 +66,15 @@ public class TeamsRepository implements TeamsDataSource {
     @Override
         public Observable<List<Team>> getTeams(int competitionId) {
         return teamsRemoteDataSource.getTeams(competitionId);
+    }
+
+    @Override
+    public Observable<LeagueTable> getLeagueTable(int competitionId) {
+        return teamsRemoteDataSource.getLeagueTable(competitionId);
+    }
+
+    @Override
+    public Observable<FixtureList> getFixtureList(int competitionId) {
+        return teamsRemoteDataSource.getFixtureList(competitionId);
     }
 }

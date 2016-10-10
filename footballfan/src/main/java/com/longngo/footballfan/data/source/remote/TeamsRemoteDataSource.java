@@ -1,5 +1,7 @@
 package com.longngo.footballfan.data.source.remote;
 
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.source.TeamsDataSource;
 import com.longngo.footballfan.FootballFanApplication;
@@ -27,6 +29,16 @@ public class TeamsRemoteDataSource implements TeamsDataSource {
     @Override
     public Observable<List<Team>> getTeams(int competitionId) {
         return FootballFanApplication.getMainComponent().dataManager().getTeams(competitionId);
+    }
+
+    @Override
+    public Observable<LeagueTable> getLeagueTable(int competitionId) {
+        return FootballFanApplication.getMainComponent().dataManager().getLeagueTable(competitionId);
+    }
+
+    @Override
+    public Observable<FixtureList> getFixtureList(int competitionId) {
+        return FootballFanApplication.getMainComponent().dataManager().getFixtureList(competitionId);
     }
 
 }

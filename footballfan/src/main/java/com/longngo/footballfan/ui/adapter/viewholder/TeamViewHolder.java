@@ -39,7 +39,7 @@ public class TeamViewHolder extends BaseViewHolder<TeamVM> {
 //                Drawable drawable = svg.createPictureDrawable();
 //                return drawable;
 //            } catch (Exception e) {
-//                Log.e("MainActivity", e.getMessage(), e);
+//                Log.e("ContactActivity", e.getMessage(), e);
 //            }
 //
 //            return null;

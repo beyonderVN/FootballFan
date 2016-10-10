@@ -5,12 +5,18 @@ import android.util.Log;
 import com.longngo.footballfan.common.coremvp.SimpleMVPPresenter;
 import com.longngo.footballfan.common.schedulers.BaseSchedulerProvider;
 import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.Fixture;
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
 import com.longngo.footballfan.data.source.TeamsRepository;
 import com.longngo.footballfan.ui.viewmodel.BaseVM;
 import com.longngo.footballfan.ui.viewmodel.CompetitionVM;
+import com.longngo.footballfan.ui.viewmodel.SectionVM;
+import com.longngo.footballfan.ui.viewmodel.SimpleTextViewVM;
 import com.longngo.footballfan.ui.viewmodel.mapper.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,9 +59,15 @@ public class CompetionDetailPresenter extends SimpleMVPPresenter<CompetionDetail
         getPresentationModel().clearList();
         getPresentationModel().add(new CompetitionVM(competition));
         loadDataDisplay();
-        getCompetition(Integer.valueOf(competition.getId()));
+        getCompetitionDetail(Integer.valueOf(competition.getId()));
     }
-    private void getCompetition(int id) {
+    void getCompetitionDetail(int id){
+        getTeamList(id);
+//        getLeagueTable(id);
+//        getFixtureList(id);
+
+    }
+    private void getTeamList(final int id) {
         mSubscriptions.clear();
         Subscription subscription = teamsRepository
                 .getTeams(id)
@@ -72,6 +84,7 @@ public class CompetionDetailPresenter extends SimpleMVPPresenter<CompetionDetail
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "onCompleted: ");
+                        getLeagueTable(id);
                     }
 
                     @Override
@@ -84,8 +97,10 @@ public class CompetionDetailPresenter extends SimpleMVPPresenter<CompetionDetail
                         Log.d(TAG, "onNext: "+visitables.size());
                         if (!visitables.isEmpty()) {
                             Log.d(TAG, "onSuccess: "+visitables.size());
-
-                            getPresentationModel().add(visitables);
+                            SectionVM sectionVM = new SectionVM();
+                            sectionVM.setTitle("Team List");
+                            sectionVM.setBaseVMs(visitables);
+                            getPresentationModel().add(sectionVM);
                             loadDataDisplay();
 
                         } else {
@@ -96,6 +111,89 @@ public class CompetionDetailPresenter extends SimpleMVPPresenter<CompetionDetail
         mSubscriptions.add(subscription);
     }
 
+    private void getLeagueTable(final int id) {
+        mSubscriptions.clear();
+        Subscription subscription = teamsRepository
+                .getLeagueTable(id)
+                .map(new Func1<LeagueTable, List<BaseVM>>() {
+                    @Override
+                    public List<BaseVM> call(LeagueTable teams) {
+                        List<BaseVM>  baseVMs = new ArrayList<BaseVM>();
+//                        for (Standing standing:teams.getStanding()
+//                             ) {
+//                            baseVMs.add(new SimpleTextViewVM(standing.getCrestURI()));
+//                        }
+                        return baseVMs;
+                    }
+
+                })
+
+                .subscribeOn( baseSchedulerProvider.computation())
+                .observeOn( baseSchedulerProvider.ui())
+                .subscribe(new Observer<List<BaseVM>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "onCompleted: ");
+                        getFixtureList(id);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+
+                    }
+
+                    @Override
+                    public void onNext(List<BaseVM> visitables) {
+                        Log.d(TAG, "onNext: "+visitables.toString());
+
+                    }
+                });
+        mSubscriptions.add(subscription);
+    }
+    private void getFixtureList(int id) {
+        mSubscriptions.clear();
+        Subscription subscription = teamsRepository
+                .getFixtureList(id)
+                .map(new Func1<FixtureList, List<BaseVM>>() {
+                    @Override
+                    public List<BaseVM> call(FixtureList fixtureList) {
+                        List<BaseVM>  baseVMs = new ArrayList<BaseVM>();
+                        for (Fixture fixture:fixtureList.getFixtures()
+                             ) {
+                            baseVMs.add(new SimpleTextViewVM(fixture.getHomeTeamName()+" VS "+fixture.getAwayTeamName()));
+                        }
+                        return baseVMs;
+                    }
+
+                })
+
+                .subscribeOn( baseSchedulerProvider.computation())
+                .observeOn( baseSchedulerProvider.ui())
+                .subscribe(new Observer<List<BaseVM>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+
+                    }
+
+                    @Override
+                    public void onNext(List<BaseVM> visitables) {
+                        Log.d(TAG, "onNext: "+visitables.toString());
+                        SectionVM sectionVM = new SectionVM();
+                        sectionVM.setTitle("Team List");
+                        sectionVM.setBaseVMs(visitables);
+                        getPresentationModel().add(sectionVM);
+                        loadDataDisplay();
+                    }
+                });
+        mSubscriptions.add(subscription);
+    }
     @Override
     public void loadDataDisplay() {
         if(getMvpView()==null)return;

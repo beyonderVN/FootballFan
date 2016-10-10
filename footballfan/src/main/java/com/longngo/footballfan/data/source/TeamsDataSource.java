@@ -1,8 +1,7 @@
 package com.longngo.footballfan.data.source;
 
-import android.widget.TextView;
-
-import com.longngo.footballfan.data.model.Competition;
+import com.longngo.footballfan.data.model.FixtureList;
+import com.longngo.footballfan.data.model.LeagueTable;
 import com.longngo.footballfan.data.model.Team;
 
 import java.util.List;
@@ -15,4 +14,8 @@ import rx.Observable;
 
 public interface TeamsDataSource {
     Observable<List<Team>> getTeams(int competitionId);
+
+    Observable<LeagueTable> getLeagueTable(int competitionId);
+
+    Observable<FixtureList> getFixtureList(int competitionId);
 }
